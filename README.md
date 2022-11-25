@@ -82,6 +82,8 @@ REFERENCES "departments" ("dept_no");
 
 I then performed queries per the instructions and returned the correct results. Here is the code:
 
+--List the employee number, last name, first name, sex, and salary of each employee.
+
 inner join dept_emp on
 departments.dept_no = dept_emp.dept_no
 inner join employees on
