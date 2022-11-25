@@ -5,7 +5,7 @@ This challenge was analyzing 6 different databases and performing inner joins to
 
 I used the QuickSQLDB website at https://www.quickdatabasediagrams.com/ and have uploaded a picture of my final ERD:
 
-![QuickDBD-Free Diagram](https://user-images.githubusercontent.com/112498067/204038516-2b8caa28-9613-4700-bcf6-d632a51300da.png)
+![QuickDBD-Free Diagram](https://user-images.githubusercontent.com/112498067/204040303-60fc0667-7598-43c5-bf75-f5126404ca57.png)
 
 The code generated is as follows:
 
