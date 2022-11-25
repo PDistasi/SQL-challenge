@@ -32,7 +32,7 @@ CREATE TABLE "employees" (
 
 CREATE TABLE "salaries" (
     "emp_no" INT   NOT NULL,
-    "salary" VARCHAR   NOT NULL,
+    "salary" INT   NOT NULL,
     CONSTRAINT "pk_salaries" PRIMARY KEY (
         "emp_no"
      )
