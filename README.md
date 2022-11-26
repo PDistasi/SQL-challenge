@@ -7,7 +7,7 @@ I used the QuickSQLDB website at https://www.quickdatabasediagrams.com/ and have
 
 ![QuickDBD-Free Diagram](https://user-images.githubusercontent.com/112498067/204040303-60fc0667-7598-43c5-bf75-f5126404ca57.png)
 
-I then exported the data to SQLAlchemy and imported the .csv data files.
+I then exported the code to SQLAlchemy and imported the .csv data files.
 
 I then performed queries per the instructions and returned the correct results. Here are the results:
 
