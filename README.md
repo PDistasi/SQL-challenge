@@ -7,120 +7,40 @@ I used the QuickSQLDB website at https://www.quickdatabasediagrams.com/ and have
 
 ![QuickDBD-Free Diagram](https://user-images.githubusercontent.com/112498067/204040303-60fc0667-7598-43c5-bf75-f5126404ca57.png)
 
-The code generated is as follows:
+I then exported the data to SQLAlchemy and imported the .csv data files.
 
-CREATE TABLE "titles" (
-    "title_id" VARCHAR   NOT NULL,
-    "title" VARCHAR   NOT NULL,
-    CONSTRAINT "pk_titles" PRIMARY KEY (
-        "title_id"
-     )
-);
+I then performed queries per the instructions and returned the correct results. Here are the results:
 
-CREATE TABLE "employees" (
-    "emp_no" INT   NOT NULL,
-    "title_id" VARCHAR   NOT NULL,
-    "birth_date" DATE   NOT NULL,
-    "first_name" VARCHAR   NOT NULL,
-    "last_name" VARCHAR   NOT NULL,
-    "sex" VARCHAR   NOT NULL,
-    "hire_date" DATE   NOT NULL,
-    CONSTRAINT "pk_employees" PRIMARY KEY (
-        "emp_no"
-     )
-);
+1) List the employee number, last name, first name, sex, and salary of each employee:
 
-CREATE TABLE "salaries" (
-    "emp_no" INT   NOT NULL,
-    "salary" INT   NOT NULL,
-    CONSTRAINT "pk_salaries" PRIMARY KEY (
-        "emp_no"
-     )
-);
+![Question_1](https://user-images.githubusercontent.com/112498067/204093411-7657fddd-e43e-4867-bed9-5c21c508fd6a.png)
 
-CREATE TABLE "departments" (
-    "dept_no" VARCHAR   NOT NULL,
-    "dept_name" VARCHAR   NOT NULL,
-    CONSTRAINT "pk_departments" PRIMARY KEY (
-        "dept_no"
-     )
-);
+2) List the first name, last name, and hire date for the employees who were hired in 1986:
 
-CREATE TABLE "dept_manager" (
-    "dept_no" VARCHAR   NOT NULL,
-    "emp_no" INT   NOT NULL,
-    CONSTRAINT "pk_dept_manager" PRIMARY KEY (
-        "dept_no","emp_no"
-     )
-);
+![Question_2](https://user-images.githubusercontent.com/112498067/204093433-497286c5-f50e-4e38-8f70-5ecb9fffcfba.png)
 
-CREATE TABLE "dept_emp" (
-    "emp_no" INT   NOT NULL,
-    "dept_no" VARCHAR   NOT NULL,
-    CONSTRAINT "pk_dept_emp" PRIMARY KEY (
-        "emp_no","dept_no"
-     )
-);
+3) List the manager of each department along with their department number, department name, employee number, last name, and first name:
 
-ALTER TABLE "employees" ADD CONSTRAINT "fk_employees_title_id" FOREIGN KEY("title_id")
-REFERENCES "titles" ("title_id");
+![Question_3](https://user-images.githubusercontent.com/112498067/204093473-6262cbac-ae14-48ea-a32b-7fde059ab555.png)
 
-ALTER TABLE "salaries" ADD CONSTRAINT "fk_salaries_emp_no" FOREIGN KEY("emp_no")
-REFERENCES "employees" ("emp_no");
+ 4) List the department number for each employee along with that employee’s employee number, last name, first name, and department name:
 
-ALTER TABLE "dept_manager" ADD CONSTRAINT "fk_dept_manager_dept_no" FOREIGN KEY("dept_no")
-REFERENCES "departments" ("dept_no");
+![Question_4](https://user-images.githubusercontent.com/112498067/204093521-10eb895d-3361-49ef-9c96-f8171a071e4b.png)
 
-ALTER TABLE "dept_manager" ADD CONSTRAINT "fk_dept_manager_emp_no" FOREIGN KEY("emp_no")
-REFERENCES "employees" ("emp_no");
+5) List first name, last name, and sex of each employee whose first name is Hercules and whose last name begins with the letter B:
 
-ALTER TABLE "dept_emp" ADD CONSTRAINT "fk_dept_emp_emp_no" FOREIGN KEY("emp_no")
-REFERENCES "employees" ("emp_no");
+![Question_5](https://user-images.githubusercontent.com/112498067/204093154-e92e71a4-a358-4af2-bab0-44278855ec5c.png)
 
-ALTER TABLE "dept_emp" ADD CONSTRAINT "fk_dept_emp_dept_no" FOREIGN KEY("dept_no")
-REFERENCES "departments" ("dept_no");
+6) List each employee in the Sales department, including their employee number, last name, and first name:
 
-I then performed queries per the instructions and returned the correct results. Here is the code:
+![Question_6](https://user-images.githubusercontent.com/112498067/204093242-9f0938f6-999b-4c01-b6b9-a239c07911ae.png)
 
---List the employee number, last name, first name, sex, and salary of each employee.
+7) List each employee in the Sales and Development departments, including their employee number, last name, first name, and department name:
 
-inner join dept_emp on
-departments.dept_no = dept_emp.dept_no
-inner join employees on
-employees.emp_no = dept_emp.emp_no;
+![Question_7](https://user-images.githubusercontent.com/112498067/204093321-d6ab3b2b-f7af-4336-afde-e9429b589bf4.png)
 
---List first name, last name, and sex of each employee whose first name is Hercules and whose last name begins with the letter B.
+8) List the frequency counts, in descending order, of all the employee last names (that is, how many employees share each last name):
 
-select employees.first_name, employees.last_name, employees.sex
-from employees
-where first_name in ('Hercules') and last_name like 'B%'
-order by "last_name";
+![Question_8](https://user-images.githubusercontent.com/112498067/204093364-59c9e9f7-e5f1-4d46-8764-ea5422541c7e.png)
 
---List each employee in the Sales department, including their employee number, last name, and first name.
 
-SELECT departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
-from departments
-inner join dept_emp on
-departments.dept_no = dept_emp.dept_no
-inner join employees on
-employees.emp_no = dept_emp.emp_no
-where dept_name in ('Sales');
-
---List each employee in the Sales and Development departments, including their employee number, 
---last name, first name, and department name.
-
-SELECT departments.dept_name, dept_emp.emp_no, employees.last_name, employees.first_name
-from departments
-inner join dept_emp on
-departments.dept_no = dept_emp.dept_no
-inner join employees on
-employees.emp_no = dept_emp.emp_no
-where dept_name in ('Sales', 'Development')
-order by "dept_name";
-
---List the frequency counts, in descending order, of all the employee last names (that is, how many employees share each last name).
-
-Select employees.last_name, count(last_name) as frequency
-from employees
-group by employees.last_name
-order by "last_name";
